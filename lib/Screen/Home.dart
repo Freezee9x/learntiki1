@@ -1,13 +1,13 @@
-import 'dart:async';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tikidemo/Api/Api.dart';
 import 'package:tikidemo/Model/Products.dart';
+import 'package:tikidemo/Screen/CartPage.dart';
 import 'package:tikidemo/Screen/Details.dart';
 import 'package:tikidemo/Widget/Search.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({Key? key}) : super(key: key);
   static const routeName = '/Home';
 
   @override
@@ -16,11 +16,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late Future<List<Album>> futureAlbum;
+  late TextEditingController _searchController;
 
   @override
   void initState() {
     super.initState();
     futureAlbum = fetchAlbum();
+    _searchController = TextEditingController();
   }
 
   @override
@@ -33,26 +35,32 @@ class _HomeState extends State<Home> {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.lightBlueAccent,
-          actions: [
-            IconButton(
+          title: Text('Tiki'),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: IconButton(
                 icon: const Icon(Icons.search),
                 onPressed: () {
-                  showSearch(context: context, delegate: ProductSearch());
-                }),
-            IconButton(
-              icon: const Icon(
-                Icons.add_shopping_cart,
+                  showSearch(
+                    context: context,
+                    delegate: ProductSearch(products: futureAlbum),
+                  );
+                },
               ),
-              onPressed: () {},
             ),
             IconButton(
-              icon: const Icon(
-                Icons.settings,
-              ),
+              icon: const Icon(Icons.add_shopping_cart),
+              onPressed: () {
+                // Điều hướng đến trang CartPage khi nhấn vào nút "Shopping cart"
+                Navigator.pushNamed(context, CartPage.routeName);
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.settings),
               onPressed: () {},
             ),
           ],
-          title: const Text('Tiki'),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[

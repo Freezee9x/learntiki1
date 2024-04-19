@@ -15,7 +15,7 @@ class QuantitySold {
 }
 
 class Album {
-  final String id;
+  final int id;
   final String name;
   final String thumbnail_url;
   final int price;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tikidemo/Screen/CartPage.dart';
 import 'package:tikidemo/Screen/Home.dart';
 
 void main() => runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: const Home(),
       routes: {
         Home.routeName: (_) => const Home(),
-        // ShoppingCart.routeName: (_) => const ShoppingCart(),
+        CartPage.routeName: (_) => CartPage(),
       },
       initialRoute: Home.routeName,
     );
