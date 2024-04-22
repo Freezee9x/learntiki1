@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tikidemo/Screen/CartPage.dart';
+import 'package:tikidemo/Widget/CartNotifier.dart';
 import 'package:tikidemo/Screen/Home.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartNotifier(),
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,10 +24,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Home(),
+      home: const Home(
+        cartItems: [],
+      ),
       routes: {
-        Home.routeName: (_) => const Home(),
-        CartPage.routeName: (_) => CartPage(),
+        Home.routeName: (_) => const Home(
+              cartItems: [],
+            ),
+        CartPage.routeName: (_) => CartPage()
       },
       initialRoute: Home.routeName,
     );

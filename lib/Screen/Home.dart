@@ -5,9 +5,11 @@ import 'package:tikidemo/Model/Products.dart';
 import 'package:tikidemo/Screen/CartPage.dart';
 import 'package:tikidemo/Screen/Details.dart';
 import 'package:tikidemo/Widget/Search.dart';
+import 'package:provider/provider.dart';
+import 'package:tikidemo/Widget/CartNotifier.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, required List<CartItem> cartItems}) : super(key: key);
   static const routeName = '/Home';
 
   @override
@@ -27,6 +29,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final cartNotifier = Provider.of<CartNotifier>(context);
+
     return MaterialApp(
       title: 'Tiki',
       theme: ThemeData(
